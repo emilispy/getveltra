@@ -6,5 +6,5 @@
     "Script": "loadstring(game:HttpGet('https://example.com/script.lua'))",
     "Free": true,
     "Image": "https://example.com/petgo-image.jpg"
-  },
+  }
 ]
