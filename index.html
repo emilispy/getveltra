@@ -3,52 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Script Finder - Ultra UI</title>
+  <title>Script Finder</title>
   <style>
-    /* Set background image */
+    /* Dark background */
     body {
-      background: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
-      background-size: cover;
-      position: relative;
-      min-height: 100vh;
+      background: #282828;
       margin: 0;
       font-family: 'Poppins', Arial, sans-serif;
       color: #ffffff;
       overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    /* Faded dark overlay */
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(40, 40, 40, 0.8); /* 70-80% dark */
-      z-index: 0;
-    }
+
     main {
+      flex: 1;
+      padding: 2rem;
       position: relative;
       z-index: 1;
-      padding: 2rem;
     }
-    h1 {
-      text-align: center;
-      font-size: 3rem;
-      margin-bottom: 2rem;
-      background: linear-gradient(90deg, #00c6ff, #0072ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 800;
-    }
+
     #searchForm {
       display: flex;
       justify-content: center;
       margin-bottom: 2rem;
-      gap: 0;
     }
+
     input[type="text"] {
       width: 50%;
       padding: 1rem;
       font-size: 1rem;
-      background: rgba(50, 50, 50, 0.8);
+      background: rgba(50, 50, 50, 0.9);
       color: #fff;
       border: 2px solid #00c6ff;
       border-right: none;
@@ -56,9 +42,11 @@
       outline: none;
       transition: background 0.3s;
     }
+
     input[type="text"]:focus {
-      background: rgba(70, 70, 70, 0.9);
+      background: rgba(70, 70, 70, 1);
     }
+
     button {
       padding: 1rem 1.5rem;
       font-size: 1rem;
@@ -69,9 +57,11 @@
       cursor: pointer;
       transition: background 0.3s ease;
     }
+
     button:hover {
       background: linear-gradient(135deg, #0072ff, #00c6ff);
     }
+
     #results {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -80,63 +70,92 @@
       list-style: none;
       padding: 0;
     }
+
     #results li {
-      background: linear-gradient(145deg, rgba(40,40,40,0.9), rgba(60,60,60,0.9));
-      border: 2px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+      background: #333;
       border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
-      transition: all 0.3s ease;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-end;
+      height: 340px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
+
+    #results li::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 70%;
+      background: linear-gradient(to top, rgba(40,40,40,0.9) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
     #results li:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.8);
-      background: linear-gradient(145deg, rgba(50,50,50,0.95), rgba(80,80,80,0.95));
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.7);
     }
+
+    .content {
+      position: relative;
+      padding: 1rem;
+      z-index: 2;
+    }
+
     .script-title {
-      font-size: 1.4rem;
-      margin-bottom: 0.8rem;
+      font-size: 1.2rem;
+      margin-bottom: 0.6rem;
       color: #00c6ff;
       text-decoration: none;
       font-weight: bold;
-      display: block;
       word-wrap: break-word;
+      display: block;
     }
+
     .game {
       color: #ccc;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       margin-bottom: 1rem;
     }
+
     .actions {
       margin-top: auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
+
     .execute-btn {
       display: flex;
       align-items: center;
       background: linear-gradient(135deg, #00c6ff, #0072ff);
       color: white;
-      padding: 0.6rem 1rem;
+      padding: 0.5rem 1rem;
       font-size: 0.9rem;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
       transition: background 0.3s ease;
     }
+
     .execute-btn:hover {
       background: linear-gradient(135deg, #0072ff, #00c6ff);
     }
+
     .execute-btn svg {
       width: 18px;
       height: 18px;
       margin-right: 5px;
       fill: white;
     }
+
     .badge {
       padding: 0.4rem 0.7rem;
       font-size: 0.75rem;
@@ -147,6 +166,7 @@
       font-weight: bold;
       white-space: nowrap;
     }
+
     .badge.paid {
       background-color: #e91e63;
     }
@@ -154,7 +174,6 @@
 </head>
 <body>
   <main>
-    <h1>Script Finder</h1>
 
     <form id="searchForm">
       <input
@@ -200,19 +219,22 @@
         resultsContainer.innerHTML = '';
         scripts.forEach(script => {
           const li = document.createElement('li');
+          li.style.backgroundImage = `url(${script.image || 'https://via.placeholder.com/300x300?text=No+Image'})`;
           li.innerHTML = `
-            <a href="https://scriptblox.com/script/${script.slug}" target="_blank" class="script-title">${script.title}</a>
-            <div class="game">Game: ${script.game.name}</div>
-            <div class="actions">
-              <button class="execute-btn" onclick="window.open('https://scriptblox.com/script/${script.slug}', '_blank')">
-                <svg viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z"/>
-                </svg>
-                Execute
-              </button>
-              <span class="badge ${script.paid ? 'paid' : ''}">
-                ${script.paid ? 'Paid' : 'Free'}
-              </span>
+            <div class="content">
+              <a href="https://scriptblox.com/script/${script.slug}" target="_blank" class="script-title">${script.title}</a>
+              <div class="game">Game: ${script.game.name}</div>
+              <div class="actions">
+                <button class="execute-btn" onclick="window.open('https://scriptblox.com/script/${script.slug}', '_blank')">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                  Execute
+                </button>
+                <span class="badge ${script.paid ? 'paid' : ''}">
+                  ${script.paid ? 'Paid' : 'Free'}
+                </span>
+              </div>
             </div>
           `;
           resultsContainer.appendChild(li);
