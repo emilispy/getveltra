@@ -5,23 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Script Finder</title>
   <style>
-    /* Dark background */
     body {
       background: #282828;
       margin: 0;
       font-family: 'Poppins', Arial, sans-serif;
-      color: #ffffff;
-      overflow-x: hidden;
+      color: #fff;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
     }
 
     main {
       flex: 1;
       padding: 2rem;
-      position: relative;
       z-index: 1;
+      position: relative;
     }
 
     #searchForm {
@@ -40,11 +39,12 @@
       border-right: none;
       border-radius: 12px 0 0 12px;
       outline: none;
-      transition: background 0.3s;
+      transition: 0.3s;
     }
 
     input[type="text"]:focus {
       background: rgba(70, 70, 70, 1);
+      border-color: #00c6ff;
     }
 
     button {
@@ -55,7 +55,7 @@
       border: none;
       border-radius: 0 12px 12px 0;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: 0.3s;
     }
 
     button:hover {
@@ -81,10 +81,10 @@
       flex-direction: column;
       justify-content: flex-end;
       height: 340px;
-      transition: transform 0.3s, box-shadow 0.3s;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      transition: 0.4s ease;
     }
 
     #results li::after {
@@ -93,14 +93,14 @@
       bottom: 0;
       left: 0;
       right: 0;
-      height: 70%;
-      background: linear-gradient(to top, rgba(40,40,40,0.9) 0%, transparent 100%);
+      height: 50%;
+      background: linear-gradient(to top, rgba(40,40,40,0.95) 0%, transparent 100%);
       pointer-events: none;
     }
 
     #results li:hover {
-      transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.7);
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.8);
     }
 
     .content {
@@ -110,26 +110,31 @@
     }
 
     .script-title {
-      font-size: 1.2rem;
-      margin-bottom: 0.6rem;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
       color: #00c6ff;
       text-decoration: none;
       font-weight: bold;
-      word-wrap: break-word;
       display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .game {
       color: #ccc;
       font-size: 0.9rem;
       margin-bottom: 1rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .actions {
-      margin-top: auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      margin-top: auto;
     }
 
     .execute-btn {
@@ -142,7 +147,7 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: 0.3s ease;
     }
 
     .execute-btn:hover {
@@ -189,6 +194,37 @@
   </main>
 
   <script>
+    async function fetchScriptContent(scriptId) {
+      try {
+        const res = await fetch(`https://corsproxy.io/?https://scriptblox.com/api/script/${scriptId}`);
+        if (!res.ok) {
+          throw new Error('Failed to fetch script');
+        }
+        const data = await res.json();
+        const scriptContent = data.result?.script || '';
+        
+        // Now you can either:
+        // (1) Save the scriptContent to a file
+        // (2) Copy to clipboard
+        // (3) Send back to your C# program
+        
+        // Example simple download:
+        const blob = new Blob([scriptContent], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = "script.lua";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        
+      } catch (err) {
+        console.error('Error fetching script:', err);
+        alert('Failed to fetch script!');
+      }
+    }
+
     document.getElementById('searchForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const query = document.getElementById('queryInput').value.trim();
@@ -225,7 +261,7 @@
               <a href="https://scriptblox.com/script/${script.slug}" target="_blank" class="script-title">${script.title}</a>
               <div class="game">Game: ${script.game.name}</div>
               <div class="actions">
-                <button class="execute-btn" onclick="window.open('https://scriptblox.com/script/${script.slug}', '_blank')">
+                <button class="execute-btn" onclick="fetchScriptContent('${script._id}')">
                   <svg viewBox="0 0 24 24">
                     <path d="M8 5v14l11-7z"/>
                   </svg>
