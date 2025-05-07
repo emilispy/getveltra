@@ -3,63 +3,122 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Script Finder Dark Mode</title>
+  <title>Script Finder - Pro UI</title>
   <style>
     body {
       background-color: rgb(40, 40, 40);
       color: #ffffff;
-      font-family: Arial, sans-serif;
+      font-family: 'Poppins', Arial, sans-serif;
       margin: 2rem;
     }
     h1 {
       color: #ffffff;
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2.5rem;
     }
     #searchForm {
-      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
     }
     input[type="text"] {
-      width: 70%;
-      padding: 0.6rem;
+      width: 50%;
+      padding: 0.8rem;
       font-size: 1rem;
       background: #333;
       color: #fff;
       border: 1px solid #555;
-      border-radius: 6px;
+      border-radius: 8px 0 0 8px;
+      outline: none;
     }
     button {
-      padding: 0.6rem 1.2rem;
+      padding: 0.8rem 1.5rem;
       font-size: 1rem;
       background-color: #4CAF50;
       color: white;
       border: none;
-      border-radius: 6px;
+      border-radius: 0 8px 8px 0;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
     button:hover {
       background-color: #45a049;
     }
     #results {
-      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
       padding: 0;
-      margin-top: 1rem;
+      list-style: none;
+      margin-top: 2rem;
     }
     #results li {
       background: #333;
-      margin-bottom: 1rem;
-      padding: 1rem;
       border: 1px solid #555;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
-    #results a {
-      text-decoration: none;
+    #results li:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+    }
+    .script-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
       color: #1E90FF;
+      text-decoration: none;
+      font-weight: bold;
+      display: block;
+    }
+    .game {
+      color: #bbb;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+    .actions {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .execute-btn {
+      display: flex;
+      align-items: center;
+      background: #4CAF50;
+      color: white;
+      padding: 0.5rem 1rem;
+      font-size: 0.95rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .execute-btn:hover {
+      background: #45a049;
+    }
+    .execute-btn svg {
+      width: 18px;
+      height: 18px;
+      margin-right: 5px;
+      fill: white;
+    }
+    .badge {
+      padding: 0.3rem 0.6rem;
+      font-size: 0.8rem;
+      background-color: #2196F3;
+      border-radius: 12px;
+      text-align: center;
+      color: white;
       font-weight: bold;
     }
-    #results .game {
-      color: #bbb;
-      font-size: 0.9em;
-      margin-top: 0.4em;
+    .badge.paid {
+      background-color: #e91e63;
     }
   </style>
 </head>
@@ -70,7 +129,7 @@
     <input
       type="text"
       id="queryInput"
-      placeholder="Enter script name…"
+      placeholder="Search for scripts…"
       required
     />
     <button type="submit">Search</button>
@@ -92,7 +151,7 @@
       resultsContainer.innerHTML = '<li>Searching...</li>';
 
       try {
-        // 🛡 Using CORS proxy
+        // Fetch using CORS proxy
         const response = await fetch(`https://corsproxy.io/?https://scriptblox.com/api/script/search?q=${encodeURIComponent(query)}`);
         
         if (!response.ok) {
@@ -111,8 +170,19 @@
         scripts.forEach(script => {
           const li = document.createElement('li');
           li.innerHTML = `
-            <a href="https://scriptblox.com/script/${script.slug}" target="_blank">${script.title}</a>
+            <a href="https://scriptblox.com/script/${script.slug}" target="_blank" class="script-title">${script.title}</a>
             <div class="game">Game: ${script.game.name}</div>
+            <div class="actions">
+              <button class="execute-btn" onclick="window.open('https://scriptblox.com/script/${script.slug}', '_blank')">
+                <svg viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                Execute
+              </button>
+              <span class="badge ${script.paid ? 'paid' : ''}">
+                ${script.paid ? 'Paid' : 'Free'}
+              </span>
+            </div>
           `;
           resultsContainer.appendChild(li);
         });
