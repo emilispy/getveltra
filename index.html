@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Script Finder</title>
+  <title>Veltra ScriptHub</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
@@ -13,7 +13,7 @@
     }
     
     body {
-      background: linear-gradient(135deg, #1a1a2e, #161623);
+      background: #282828;
       margin: 0;
       font-family: 'Poppins', sans-serif;
       color: #fff;
@@ -28,7 +28,7 @@
     }
     
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       margin-bottom: 0.5rem;
       background: linear-gradient(135deg, #00c6ff, #0072ff);
       -webkit-background-clip: text;
@@ -72,7 +72,7 @@
     input[type="text"] {
       width: 100%;
       padding: 1.2rem 1.5rem;
-      background: rgba(30, 30, 45, 0.9);
+      background: rgba(40, 40, 40, 0.9);
       border: 2px solid #00c6ff;
       border-right: none;
       border-radius: 12px 0 0 12px;
@@ -83,7 +83,7 @@
     }
     
     input[type="text"]:focus {
-      background: rgba(40, 40, 60, 1);
+      background: rgba(40, 40, 40, 1);
       box-shadow: 0 0 15px rgba(0, 198, 255, 0.5);
     }
     
@@ -140,6 +140,17 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
     
+    #results li::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(40, 40, 40, 0.75);
+      z-index: 1;
+    }
+    
     #results li::before {
       content: '';
       position: absolute;
@@ -147,8 +158,9 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: linear-gradient(to bottom, rgba(20, 20, 30, 0.2) 0%, rgba(15, 15, 25, 0.95) 70%);
-      z-index: 1;
+      background: linear-gradient(to bottom, rgba(40, 40, 40, 0.5) 0%, rgba(40, 40, 40, 0.95) 70%);
+      z-index: 2;
+      border-radius: 16px;
     }
     
     #results li:hover {
@@ -159,7 +171,7 @@
     .content {
       position: relative;
       padding: 1.5rem;
-      z-index: 2;
+      z-index: 3;
       display: flex;
       flex-direction: column;
       gap: 0.8rem;
@@ -240,8 +252,8 @@
       background: linear-gradient(135deg, #00c6ff, #0072ff);
       color: white;
       padding: 0.8rem 1.2rem;
-      font-size: 1rem;
-      font-weight: 500;
+      font-size: 1.2rem;
+      font-weight: 700;
       border: none;
       border-radius: 8px;
       cursor: pointer;
@@ -256,8 +268,8 @@
     }
     
     .execute-btn svg {
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       margin-right: 8px;
       fill: white;
     }
@@ -349,8 +361,8 @@
 </head>
 <body>
   <header>
-    <h1>Script Finder</h1>
-    <p class="subtitle">Find and download scripts for your favorite games</p>
+    <h1>Veltra ScriptHub</h1>
+    <p class="subtitle">Find and execute scripts for your favorite games</p>
   </header>
   
   <main>
@@ -368,7 +380,7 @@
   </main>
   
   <footer>
-    © 2025 Script Finder - All scripts are provided by third parties
+    © 2025 Veltra ScriptHub - All scripts are provided by third parties
   </footer>
 
   <script>
@@ -393,8 +405,10 @@
         a.click();
         a.remove();
         URL.revokeObjectURL(url);
+        
+        alert('Script execution prepared. Ready to run!');
       } catch (error) {
-        alert(`Failed to download script: ${error.message}`);
+        alert(`Failed to execute script: ${error.message}`);
       }
     }
 
@@ -409,6 +423,11 @@
 
     function getRandomViews() {
       return Math.floor(Math.random() * 10000) + 500;
+    }
+    
+    function handleImageError(img) {
+      const gameName = img.getAttribute('data-game') || 'Game Script';
+      img.src = `https://via.placeholder.com/400x300/282828/ffffff?text=${encodeURIComponent(gameName)}`;
     }
 
     document.getElementById('searchForm').addEventListener('submit', async e => {
@@ -451,21 +470,30 @@
         }
         
         results.innerHTML = '';
-        
+
         list.forEach(script => {
-          const imageUrl = script.image || `https://via.placeholder.com/400x300/1a1a2e/ffffff?text=${encodeURIComponent(script.game.name)}`;
+          const gameName = script.game?.name || 'Unknown Game';
+          const li = document.createElement('li');
+          
+          // Create a backup image URL for when the original fails
+          const fallbackImageUrl = `https://via.placeholder.com/400x300/282828/ffffff?text=${encodeURIComponent(gameName)}`;
+          
+          // Try to use the script's image, but with an error handler
+          const imageUrl = script.image || fallbackImageUrl;
+          
+          li.style.backgroundImage = `url(${imageUrl})`;
+          li.style.backgroundColor = '#282828'; // Set background color as fallback
+          
           const views = getRandomViews();
           const formattedDate = formatDate(script.createdAt || new Date());
           
-          const li = document.createElement('li');
-          li.style.backgroundImage = `url(${imageUrl})`;
           li.innerHTML = `
             <div class="content">
               <a href="https://scriptblox.com/script/${script.slug}" target="_blank" class="script-title">${script.title}</a>
               
               <div class="game">
                 <svg viewBox="0 0 24 24"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 10H3V8h18v8zM6 15h2v-2h2v-2H8V9H6v2H4v2h2z"/><circle cx="14.5" cy="13.5" r="1.5"/><circle cx="18.5" cy="10.5" r="1.5"/></svg>
-                ${script.game.name}
+                ${gameName}
               </div>
               
               <div class="meta">
@@ -479,12 +507,20 @@
               <div class="actions">
                 <button class="execute-btn" onclick="fetchScriptContent('${script._id}', '${script.title.replace(/'/g, "\\'")}')">
                   <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                  Download
+                  Execute
                 </button>
                 <span class="badge ${script.paid ? 'paid' : 'free'}">${script.paid ? 'Premium' : 'Free'}</span>
               </div>
             </div>
           `;
+          
+          // Add image load error handler
+          const img = new Image();
+          img.onerror = function() {
+            li.style.backgroundImage = `url(${fallbackImageUrl})`;
+          };
+          img.src = imageUrl;
+          
           results.appendChild(li);
         });
       } catch (error) {
