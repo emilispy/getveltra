@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ScriptBlox Finder</title>
+  <style>
+    body { font-family: sans-serif; margin: 2rem; }
+    #searchForm { margin-bottom: 1rem; }
+    #results { list-style: none; padding: 0; }
+    #results li { 
+      margin-bottom: 0.75rem; 
+      padding: 0.5rem; 
+      border: 1px solid #ddd; 
+      border-radius: 4px;
+    }
+    #results a { text-decoration: none; color: #0066cc; }
+    #results .game { color: #555; font-size: 0.9em; }
+  </style>
+</head>
+<body>
+  <h1>ScriptBlox Script Finder</h1>
+  <form id="searchForm">
+    <input 
+      type="text" 
+      id="queryInput" 
+      placeholder="Enter script name…" 
+      required
+      style="width: 70%; padding: 0.5rem;"
+    />
+    <button type="submit" style="padding: 0.5rem 1rem;">Search</button>
+  </form>
+
+  <ul id="results"></ul>
+
+  <script>
+    const form = document.getElementById('searchForm');
+    const input = document.getElementById('queryInput');
+    const results = document.getElementById('results');
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const q = input.value.trim();
+      if (!q) return;
+
+      results.innerHTML = '<li>Searching…</li>';
+
+      try {
+        const res = await fetch(`/api/script/search?q=${encodeURIComponent(q)}`);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const { result } = await res.json();
+        
+        if (!result.scripts || result.scripts.length === 0) {
+          results.innerHTML = '<li>No scripts found.</li>';
+          return;
+        }
+
+        results.innerHTML = '';
+        result.scripts.forEach(script => {
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <strong><a href="/script/${script.slug}" target="_blank">
+              ${script.title}
+            </a></strong>
+            <div class="game">Game: ${script.game.name}</div>
+          `;
+          results.appendChild(li);
+        });
+
+      } catch (err) {
+        console.error(err);
+        results.innerHTML = '<li>Error fetching scripts. Check console.</li>';
+      }
+    });
+  </script>
+</body>
+</html>
