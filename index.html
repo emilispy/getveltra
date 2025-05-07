@@ -6,10 +6,10 @@
     <title>Veltra - Modern Script Executor</title>
     <style>
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #0ea5e9;
-            --dark: #1e293b;
+            --primary: #4287f5;
+            --primary-dark: #2563eb;
+            --secondary: #38bdf8;
+            --dark: #232323;
             --light: #f8fafc;
             --gray: #64748b;
         }
@@ -22,7 +22,7 @@
         }
         
         body {
-            background-color: #0f172a;
+            background-color: #232323;
             color: var(--light);
             line-height: 1.6;
         }
@@ -48,6 +48,14 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo img {
+            height: 2rem;
+            width: auto;
         }
         
         nav ul {
@@ -106,7 +114,7 @@
         .preview {
             width: 100%;
             height: 400px;
-            background-color: #1e293b;
+            background-color: #2c2c2c;
             border-radius: 8px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             overflow: hidden;
@@ -250,7 +258,7 @@
         }
         
         .feature-card {
-            background-color: #1e293b;
+            background-color: #2c2c2c;
             border-radius: 8px;
             padding: 2rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -306,13 +314,10 @@
 <body>
     <div class="container">
         <header>
-            <div class="logo">Veltra</div>
+            <div class="logo"><img src="/api/placeholder/32/32" alt="Veltra Logo"> Veltra</div>
             <nav>
                 <ul>
-                    <li><a href="#features">Features</a></li>
                     <li><a href="#download">Download</a></li>
-                    <li><a href="#docs">Documentation</a></li>
-                    <li><a href="#support">Support</a></li>
                 </ul>
             </nav>
         </header>
@@ -321,134 +326,19 @@
             <section class="hero">
                 <div class="hero-content">
                     <h1>Advanced <span>Script Execution</span> Made Simple</h1>
-                    <p>Veltra is a powerful, lightweight tool designed for developers. Execute scripts with ease, debug efficiently, and enhance your workflow.</p>
+                    <p>Veltra is a powerful, lightweight tool designed for executing scripts with precision and speed.</p>
                     <div class="buttons">
                         <a href="#download" class="btn btn-primary">Download Now</a>
-                        <a href="#docs" class="btn btn-outline">View Documentation</a>
                     </div>
                 </div>
                 <div class="preview-container">
                     <div class="preview" id="preview">
-                        <div class="code-editor">
-                            <div class="editor-header">
-                                <div class="editor-dot"></div>
-                                <div class="editor-dot"></div>
-                                <div class="editor-dot"></div>
-                            </div>
-                            <div class="editor-body">
-                                <div class="editor-line">
-                                    <div class="line-number">1</div>
-                                    <div class="line-content"><span class="comment">// Initialize Veltra script executor</span></div>
-                                </div>
-                                <div class="editor-line">
-                                    <div class="line-number">2</div>
-                                    <div class="line-content"><span class="keyword">const</span> veltra = <span class="keyword">new</span> <span class="function">VeltraExecutor</span>();</div>
-                                </div>
-                                <div class="editor-line">
-                                    <div class="line-number">3</div>
-                                    <div class="line-content"></div>
-                                </div>
-                                <div class="editor-line">
-                                    <div class="line-number">4</div>
-                                    <div class="line-content"><span class="comment">// Configure execution environment</span></div>
-                                </div>
-                                <div class="editor-line">
-                                    <div class="line-number">5</div>
-                                    <div class="line-content">veltra.<span class="function">configure</span>({</div>
-                                </div>
-                                <div class="editor-line">
-                                    <div class="line-number">6</div>
-                                    <div class="line-content">  runtime: <span class="string">'node'</span>,</div>
-                                </div>
-                                <div class="editor-line">
-                                    <div class="line-number">7</div>
-                                    <div class="line-content">  debug: <span class="keyword">true</span>,</div>
-                                </div>
-                                <div class="editor-line">
-                                    <div class="line-number">8</div>
-                                    <div class="line-content">  timeout: 5000</div>
-                                </div>
-                                <div class="editor-line">
-                                    <div class="line-number">9</div>
-                                    <div class="line-content">});</div>
-                                </div>
-                                <div class="editor-line">
-                                    <div class="line-number">10</div>
-                                    <div class="line-content"></div>
-                                </div>
-                                <div class="editor-line">
-                                    <div class="line-number">11</div>
-                                    <div class="line-content"><span class="comment">// Load script from file</span></div>
-                                </div>
-                                <div class="editor-line">
-                                    <div class="line-number">12</div>
-                                    <div class="line-content"><span class="keyword">const</span> script = <span class="keyword">await</span> veltra.<span class="function">loadScript</span>(<span class="string">'./my-script.js'</span>);</div>
-                                </div>
-                                <div class="editor-line">
-                                    <div class="line-number">13</div>
-                                    <div class="line-content"></div>
-                                </div>
-                                <div class="editor-line">
-                                    <div class="line-number">14</div>
-                                    <div class="line-content"><span class="comment">// Execute the script</span></div>
-                                </div>
-                                <div class="editor-line">
-                                    <div class="line-number">15</div>
-                                    <div class="line-content"><span class="keyword">const</span> result = <span class="keyword">await</span> veltra.<span class="function">execute</span>(script);</div>
-                                </div>
-                                <div class="editor-line">
-                                    <div class="line-number">16</div>
-                                    <div class="line-content"></div>
-                                </div>
-                                <div class="editor-line">
-                                    <div class="line-number">17</div>
-                                    <div class="line-content"><span class="comment">// Display results</span></div>
-                                </div>
-                                <div class="editor-line">
-                                    <div class="line-number">18</div>
-                                    <div class="line-content">console.<span class="function">log</span>(result);</div>
-                                </div>
-                            </div>
-                        </div>
+                        <img src="/api/placeholder/400/320" alt="assets-preview.png" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;" />
                     </div>
                 </div>
             </section>
             
-            <section class="features" id="features">
-                <h2 class="section-title">Key Features</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">⚡</div>
-                        <h3>Lightning Fast</h3>
-                        <p>Execute scripts with minimal overhead. Veltra is optimized for performance across all platforms.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🛡️</div>
-                        <h3>Secure Execution</h3>
-                        <p>Run code in an isolated environment with configurable permissions and security controls.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔄</div>
-                        <h3>Cross-Platform</h3>
-                        <p>Works seamlessly across Windows, macOS, and Linux with consistent behavior.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔍</div>
-                        <h3>Advanced Debugging</h3>
-                        <p>Powerful debugging tools with detailed logs, breakpoints, and step-by-step execution.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🧩</div>
-                        <h3>Plugin System</h3>
-                        <p>Extend functionality with a robust plugin ecosystem for custom workflows.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📊</div>
-                        <h3>Performance Analytics</h3>
-                        <p>Monitor script execution, resource usage, and optimize your code with built-in analytics.</p>
-                    </div>
-                </div>
-            </section>
+
         </main>
         
         <footer>
@@ -457,8 +347,14 @@
     </div>
     
     <script>
-        // Tilt animation for preview
+        // Load the SVG image from assets-preview.png
         const preview = document.getElementById('preview');
+        
+        // Replace placeholder with SVG content
+        // In a real implementation, this would load the actual prev.png image
+        // For demo purposes, we're applying tilt animations to the container
+        
+        // Tilt animation for preview
         const previewContainer = document.querySelector('.preview-container');
         
         previewContainer.addEventListener('mousemove', (e) => {
@@ -478,6 +374,35 @@
         previewContainer.addEventListener('mouseleave', () => {
             preview.style.transform = 'rotateX(0deg) rotateY(0deg)';
         });
+
+        // Auto-tilt animation when not interacting
+        let autoTiltActive = true;
+        let tiltInterval;
+        
+        function startAutoTilt() {
+            if (autoTiltActive) {
+                let counter = 0;
+                tiltInterval = setInterval(() => {
+                    counter += 0.05;
+                    const angleX = Math.sin(counter) * 3;
+                    const angleY = Math.cos(counter * 0.7) * 5;
+                    preview.style.transform = `rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+                }, 50);
+            }
+        }
+        
+        previewContainer.addEventListener('mouseenter', () => {
+            autoTiltActive = false;
+            clearInterval(tiltInterval);
+        });
+        
+        previewContainer.addEventListener('mouseleave', () => {
+            autoTiltActive = true;
+            startAutoTilt();
+        });
+        
+        // Start auto-tilt on page load
+        startAutoTilt();
     </script>
 </body>
 </html>
