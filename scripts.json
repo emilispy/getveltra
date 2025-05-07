@@ -1,18 +1,10 @@
 [
   {
-    "Title": "Pet Go op script",
-    "Game": "Pet Go",
-    "Date": "1st December 2023",
+    "Title": "Test Script",
+    "Game": "📌 Universal",
+    "Date": "7. may 2025",
     "Script": "loadstring(game:HttpGet('https://example.com/script.lua'))",
     "Free": true,
     "Image": "https://example.com/petgo-image.jpg"
   },
-  {
-    "Title": "Another Script",
-    "Game": "Another Game",
-    "Date": "5th January 2024",
-    "Script": "print('Hello World')",
-    "Free": false,
-    "Image": "https://example.com/another-image.jpg"
-  }
 ]
