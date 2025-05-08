@@ -1,1 +1,9 @@
-
+{
+    "help": "Show available commands",
+    "clear": "Clear the terminal",
+    "echo": "Display message",
+    "time": "Show current time",
+    "date": "Show current date",
+    "network": "Show network status",
+    "system": "Show system info"
+}
