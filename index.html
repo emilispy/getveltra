@@ -14,7 +14,7 @@
             --primary-dark: #2563eb;
             --secondary: #38bdf8;
             --tertiary: #818cf8;
-            --dark: #121212;
+            --dark: #0a0a14;
             --light: #f8fafc;
             --gray: #94a3b8;
         }
@@ -40,11 +40,11 @@
             position: absolute;
             top: -300px;
             right: -300px;
-            width: 600px;
-            height: 600px;
+            width: 800px;
+            height: 800px;
             border-radius: 50%;
-            background: linear-gradient(45deg, rgba(66, 135, 245, 0.1), rgba(56, 189, 248, 0.1));
-            filter: blur(80px);
+            background: linear-gradient(45deg, rgba(66, 135, 245, 0.15), rgba(56, 189, 248, 0.15));
+            filter: blur(100px);
             z-index: -1;
         }
 
@@ -53,32 +53,35 @@
             position: absolute;
             bottom: -200px;
             left: -200px;
-            width: 500px;
-            height: 500px;
+            width: 700px;
+            height: 700px;
             border-radius: 50%;
-            background: linear-gradient(45deg, rgba(129, 140, 248, 0.1), rgba(66, 135, 245, 0.1));
-            filter: blur(80px);
+            background: linear-gradient(45deg, rgba(129, 140, 248, 0.15), rgba(66, 135, 245, 0.15));
+            filter: blur(100px);
             z-index: -1;
         }
 
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 3rem;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 0;
+            padding: 2rem 0;
             position: relative;
             z-index: 2;
         }
 
         .logo {
-            font-size: 2rem;
+            font-size: 2.25rem;
             font-weight: 700;
             background: linear-gradient(90deg, var(--primary), var(--secondary), var(--tertiary));
             -webkit-background-clip: text;
@@ -86,22 +89,30 @@
             color: transparent;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            letter-spacing: -0.01em;
+            text-shadow: 0 0 20px rgba(66, 135, 245, 0.3);
         }
 
         .logo img {
-            height: 2.2rem;
+            height: 2.5rem;
             width: auto;
-            filter: drop-shadow(0 0 8px rgba(66, 135, 245, 0.5));
+            filter: drop-shadow(0 0 10px rgba(66, 135, 245, 0.6));
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
         }
 
         .hero {
             display: flex;
             align-items: center;
-            padding: 0;
-            gap: 3rem;
-            height: calc(100vh - 130px);
+            gap: 4rem;
+            height: 100%;
             position: relative;
+            width: 100%;
         }
 
         .hero-content {
@@ -118,15 +129,18 @@
             letter-spacing: -0.02em;
             animation: fadeIn 1s ease-out;
             color: var(--light);
+            position: relative;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
         .hero h1 {
-            font-size: 5rem;
+            font-size: 6rem;
             font-weight: 800;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
+            margin-bottom: 1.75rem;
+            line-height: 1;
+            letter-spacing: -0.03em;
             animation: fadeIn 1s ease-out;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .hero h1 span {
@@ -144,46 +158,66 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 4px;
+            height: 6px;
             background: linear-gradient(90deg, var(--primary), var(--secondary), var(--tertiary));
-            border-radius: 2px;
-            transform: translateY(8px);
-            opacity: 0.6;
+            border-radius: 3px;
+            transform: translateY(10px);
+            opacity: 0.7;
+            box-shadow: 0 0 20px rgba(66, 135, 245, 0.6);
         }
 
         .hero p {
-            font-size: 1.25rem;
-            color: var(--gray);
-            margin-bottom: 2.5rem;
-            max-width: 90%;
+            font-size: 1.375rem;
+            color: #b4c6e0;
+            margin-bottom: 3rem;
+            max-width: 85%;
             animation: fadeIn 1.2s ease-out;
+            line-height: 1.5;
         }
 
         .preview-container {
             flex: 1.2;
-            perspective: 1000px;
+            perspective: 1500px;
             animation: fadeIn 1.5s ease-out;
-            padding: 1rem;
+            padding: 1.5rem;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .preview {
             width: 100%;
             height: auto;
-            border-radius: 12px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 
-                        0 0 20px rgba(66, 135, 245, 0.1),
-                        0 0 40px rgba(56, 189, 248, 0.05);
+            border-radius: 18px;
+            box-shadow: 
+                0 30px 60px -15px rgba(0, 0, 0, 0.8), 
+                0 0 30px rgba(66, 135, 245, 0.15),
+                0 0 60px rgba(56, 189, 248, 0.08);
             overflow: hidden;
             transform-style: preserve-3d;
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
             position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.1), transparent);
+            z-index: 2;
+            pointer-events: none;
         }
 
         .preview img {
             width: 100%;
             display: block;
             transform-style: preserve-3d;
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
         }
 
         .buttons {
@@ -193,12 +227,14 @@
         }
 
         .btn {
-            display: inline-block;
-            padding: 0.875rem 2rem;
-            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2.25rem;
+            font-size: 1.125rem;
             font-weight: 600;
             text-align: center;
-            border-radius: 8px;
+            border-radius: 10px;
             transition: all 0.3s;
             cursor: pointer;
             text-decoration: none;
@@ -210,13 +246,19 @@
             background: linear-gradient(90deg, var(--primary), var(--primary-dark));
             color: white;
             border: none;
-            box-shadow: 0 4px 12px rgba(66, 135, 245, 0.3);
+            box-shadow: 
+                0 6px 15px rgba(37, 99, 235, 0.4),
+                0 0 20px rgba(66, 135, 245, 0.2),
+                inset 0 1px 1px rgba(255, 255, 255, 0.2);
         }
 
         .btn-primary:hover {
             background: linear-gradient(90deg, var(--primary-dark), var(--primary));
             transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(66, 135, 245, 0.4);
+            box-shadow: 
+                0 8px 20px rgba(37, 99, 235, 0.5),
+                0 0 25px rgba(66, 135, 245, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.2);
         }
 
         .btn-primary::after {
@@ -226,12 +268,39 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: 0.6s;
         }
 
         .btn-primary:hover::after {
             left: 100%;
+        }
+
+        .btn-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            padding: 0;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-icon:hover {
+            background: rgba(255, 255, 255, 0.18);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-icon svg {
+            width: 1.75rem;
+            height: 1.75rem;
+            fill: white;
         }
 
         footer {
@@ -242,6 +311,42 @@
             margin-top: auto;
             position: relative;
             z-index: 2;
+        }
+
+        /* Add subtle particle effect */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            pointer-events: none;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         @keyframes fadeIn {
@@ -255,12 +360,46 @@
             }
         }
 
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 5rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero {
+                gap: 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 4.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.25rem;
+                max-width: 90%;
+            }
+        }
+
         @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+            
             .hero {
                 flex-direction: column;
-                padding: 0;
+                gap: 3rem;
                 justify-content: center;
-                overflow: hidden;
+                text-align: center;
+                padding: 2rem 0;
+            }
+            
+            .hero-content {
+                flex: none;
             }
             
             .hero h2 {
@@ -272,12 +411,68 @@
             }
             
             .hero p {
+                font-size: 1.125rem;
                 max-width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .preview-container {
+                flex: none;
+                width: 100%;
+                padding: 0;
+            }
+            
+            .buttons {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .logo {
+                font-size: 1.75rem;
+            }
+            
+            .logo img {
+                height: 2rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.75rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 0.875rem 1.75rem;
+                font-size: 1rem;
+            }
+            
+            .btn-icon {
+                width: 3rem;
+                height: 3rem;
+            }
+            
+            .btn-icon svg {
+                width: 1.5rem;
+                height: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
+    <div class="particles"></div>
+    
     <div class="container">
         <header>
             <div class="logo"><img src="assets-logo.png" alt="Veltra Logo">Veltra</div>
@@ -289,11 +484,18 @@
                     <h2>Introducing,</h2>
                     <h1><span>Veltra</span></h1>
                     <p>A powerful, lightweight tool designed for executing scripts with precision and speed.</p>
-                    <a href="#download" class="btn btn-primary">Download Now</a>
+                    <div class="buttons">
+                        <a href="#download" class="btn btn-primary">Download Now</a>
+                        <a href="https://discord.gg/getveltra" target="_blank" class="btn btn-icon" aria-label="Join our Discord">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                                <path d="M524.531,69.836a1.5,1.5,0,0,0-.764-.7A485.065,485.065,0,0,0,404.081,32.03a1.816,1.816,0,0,0-1.923.91,337.461,337.461,0,0,0-14.9,30.6,447.848,447.848,0,0,0-134.426,0,309.541,309.541,0,0,0-15.135-30.6,1.89,1.89,0,0,0-1.924-.91A483.689,483.689,0,0,0,116.085,69.137a1.712,1.712,0,0,0-.788.676C39.068,183.651,18.186,294.69,28.43,404.354a2.016,2.016,0,0,0,.765,1.375A487.666,487.666,0,0,0,176.02,479.918a1.9,1.9,0,0,0,2.063-.676A348.2,348.2,0,0,0,208.12,430.4a1.86,1.86,0,0,0-1.019-2.588,321.173,321.173,0,0,1-45.868-21.853,1.885,1.885,0,0,1-.185-3.126c3.082-2.309,6.166-4.711,9.109-7.137a1.819,1.819,0,0,1,1.9-.256c96.229,43.917,200.41,43.917,295.5,0a1.812,1.812,0,0,1,1.924.233c2.944,2.426,6.027,4.851,9.132,7.16a1.884,1.884,0,0,1-.162,3.126,301.407,301.407,0,0,1-45.89,21.83,1.875,1.875,0,0,0-1,2.611,391.055,391.055,0,0,0,30.014,48.815,1.864,1.864,0,0,0,2.063.7A486.048,486.048,0,0,0,610.7,405.729a1.882,1.882,0,0,0,.765-1.352C623.729,277.594,590.933,167.465,524.531,69.836ZM222.491,337.58c-28.972,0-52.844-26.587-52.844-59.239S193.056,219.1,222.491,219.1c29.665,0,53.306,26.82,52.843,59.239C275.334,310.993,251.924,337.58,222.491,337.58Zm195.38,0c-28.971,0-52.843-26.587-52.843-59.239S388.437,219.1,417.871,219.1c29.667,0,53.307,26.82,52.844,59.239C470.715,310.993,447.538,337.58,417.871,337.58Z"/>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
                 <div class="preview-container">
                     <div class="preview">
-                        <img src="assets-preview.png" alt="Interface Preview">
+                        <img src="assets-preview.png" alt="Veltra Interface Preview">
                     </div>
                 </div>
             </section>
@@ -305,6 +507,7 @@
     </div>
 
     <script>
+        // Enhanced 3D hover effect
         const preview = document.querySelector('.preview');
         const previewContainer = document.querySelector('.preview-container');
         const previewImg = document.querySelector('.preview img');
@@ -317,17 +520,47 @@
             const mouseX = e.clientX;
             const mouseY = e.clientY;
             
-            const angleX = (mouseY - centerY) / 30;
-            const angleY = (centerX - mouseX) / 30;
+            const angleX = (mouseY - centerY) / 25;
+            const angleY = (centerX - mouseX) / 25;
             
-            preview.style.transform = `rotateX(${angleX}deg) rotateY(${angleY}deg)`;
-            previewImg.style.transform = `rotateX(${-angleX}deg) rotateY(${-angleY}deg)`;
+            preview.style.transform = `rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.02)`;
+            previewImg.style.transform = `scale(1.05) translateZ(30px)`;
         });
         
         previewContainer.addEventListener('mouseleave', () => {
-            preview.style.transform = 'rotateX(0deg) rotateY(0deg)';
-            previewImg.style.transform = 'rotateX(0deg) rotateY(0deg)';
+            preview.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+            previewImg.style.transform = 'scale(1) translateZ(0)';
         });
+
+        // Create subtle floating particles
+        const particlesContainer = document.querySelector('.particles');
+        const particleCount = 20;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Random size between 2px and 6px
+            const size = Math.random() * 4 + 2;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            
+            // Random position
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            
+            // Random opacity
+            particle.style.opacity = Math.random() * 0.5;
+            
+            // Random animation duration between 15s and 30s
+            const duration = Math.random() * 15 + 15;
+            particle.style.animationDuration = `${duration}s`;
+            
+            // Random delay
+            particle.style.animationDelay = `${Math.random() * 5}s`;
+            
+            particlesContainer.appendChild(particle);
+        }
     </script>
 </body>
 </html>
