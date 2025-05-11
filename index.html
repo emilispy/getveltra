@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="assets-logo.png">
-    <title>Veltra</title>
+    <title>Veltra - Script Execution</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -105,13 +105,23 @@
         }
 
         .hero-content {
-            flex: 1;
+            flex: 0.8;
             position: relative;
             z-index: 2;
         }
 
+        .hero h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            animation: fadeIn 1s ease-out;
+            color: var(--light);
+        }
+
         .hero h1 {
-            font-size: 4rem;
+            font-size: 5rem;
             font-weight: 800;
             margin-bottom: 1.5rem;
             line-height: 1.1;
@@ -150,7 +160,7 @@
         }
 
         .preview-container {
-            flex: 1;
+            flex: 1.2;
             perspective: 1000px;
             animation: fadeIn 1.5s ease-out;
             padding: 1rem;
@@ -253,8 +263,12 @@
                 overflow: hidden;
             }
             
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
             .hero h1 {
-                font-size: 2.75rem;
+                font-size: 3.5rem;
             }
             
             .hero p {
@@ -272,8 +286,9 @@
         <main>
             <section class="hero">
                 <div class="hero-content">
-                    <h1>Advanced <span>Script Execution</span> Made Simple</h1>
-                    <p>Veltra is a powerful, lightweight tool designed for executing scripts with precision and speed.</p>
+                    <h2>Introducing,</h2>
+                    <h1><span>Veltra</span></h1>
+                    <p>A powerful, lightweight tool designed for executing scripts with precision and speed.</p>
                     <a href="#download" class="btn btn-primary">Download Now</a>
                 </div>
                 <div class="preview-container">
@@ -302,14 +317,10 @@
             const mouseX = e.clientX;
             const mouseY = e.clientY;
             
-            // Reduce the angle magnitude for a more subtle effect
             const angleX = (mouseY - centerY) / 30;
             const angleY = (centerX - mouseX) / 30;
             
-            // Apply the rotation to the preview container
             preview.style.transform = `rotateX(${angleX}deg) rotateY(${angleY}deg)`;
-            
-            // Keep the image flat inside so it's fully visible
             previewImg.style.transform = `rotateX(${-angleX}deg) rotateY(${-angleY}deg)`;
         });
         
